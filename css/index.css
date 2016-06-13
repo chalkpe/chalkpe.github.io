@@ -1,0 +1,13 @@
+body {
+    color: #333;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.section {
+    text-align: center;
+}
+
+.section h1 {
+    font-size: 6em;
+    font-family: 'Cabin Sketch', cursive;
+}
