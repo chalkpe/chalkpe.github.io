@@ -1,6 +1,6 @@
 body {
     color: #333;
-    font-family: 'Ubuntu', sans-serif;
+    font-family: 'Cabin Sketch', cursive;
 }
 
 .section {
@@ -9,5 +9,22 @@ body {
 
 .section h1 {
     font-size: 6em;
-    font-family: 'Cabin Sketch', cursive;
+}
+
+#chalk {
+    width: 33vh;
+    height: 33vh;
+}
+
+#contact {
+    display: inline;
+    font-size: 2em;
+}
+
+#contact td {
+    padding: 4px 8px;
+}
+
+#contact a {
+    color: #333;
 }
