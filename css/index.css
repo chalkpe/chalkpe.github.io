@@ -3,12 +3,23 @@ body {
     font-family: 'Cabin Sketch', cursive;
 }
 
+#scroll-to-top {
+    position: fixed;
+    bottom: 0; right: 0;
+    margin: 32px;
+}
+
 .section {
     text-align: center;
 }
 
 .section h1 {
     font-size: 6em;
+}
+
+#fp-nav ul li .fp-tooltip {
+    color: #333 !important;
+    font-family: 'Cabin Sketch', cursive !important;
 }
 
 #chalk {
