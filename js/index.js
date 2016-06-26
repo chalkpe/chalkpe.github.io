@@ -4,7 +4,9 @@ $(document).ready(function(){
         sectionsColor: ['#1ABD9D', '#E91E63', '#3F51B5', '#607D8B'],
 
         navigation: true, navigationPosition: 'right',
-        navigationTooltips: ['ChalkPE', 'Dimigo', 'Profile', 'Contact']
+        navigationTooltips: ['ChalkPE', 'Dimigo', 'Profile', 'Contact'],
+
+        loopBottom: true, css3: true, scrollingSpeed: 1000
     });
 
     $('#scroll-to-top').click(function(){
