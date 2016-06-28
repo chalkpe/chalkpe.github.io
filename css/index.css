@@ -5,12 +5,7 @@ body {
 
 #scroll-to-top {
     position: fixed;
-    bottom: 0; right: 0;
-    margin: 32px;
-}
-
-.section {
-    text-align: center;
+    bottom: 45px; right: 24px;
 }
 
 .section h1 {
@@ -28,17 +23,21 @@ body {
 }
 
 #contacts {
+    width: auto;
     font-size: 2em;
-    display: inline;
-    
-    margin-left: 0 auto;
-    margin-right: 0 auto;
+    line-height: 2em;
+    display: inline-block;
 }
 
 #contacts td {
-    padding: 4px 8px;
+    padding: 2px 8px;
 }
 
-#contacts a {
+#contacts .contact-link {
     color: #333;
+    transition: color 0.25s ease;
+}
+
+#contacts .contact-link:hover {
+    color: #EEE;
 }
