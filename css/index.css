@@ -28,8 +28,11 @@ body {
 }
 
 #contacts {
-    display: inline;
     font-size: 2em;
+    display: inline;
+    
+    margin-left: 0 auto;
+    margin-right: 0 auto;
 }
 
 #contacts td {
