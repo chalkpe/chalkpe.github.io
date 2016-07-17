@@ -33,11 +33,11 @@ body {
     padding: 2px 8px;
 }
 
-#contacts .contact-link {
+.link {
     color: #333;
     transition: color 0.25s ease;
 }
 
-#contacts .contact-link:hover {
+.link:hover {
     color: #EEE;
 }
