@@ -1,0 +1,34 @@
+{
+  "name": "chalkpe.github.io",
+  "version": "1.0.0",
+  "description": "My blog",
+  "main": "webpack.config.babel.js",
+  "scripts": {
+    "test": "standard",
+    "start": "nodemon . --exec babel-node",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --hot",
+    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChalkPE/chalkpe.github.io.git"
+  },
+  "keywords": [
+    "chalkpe",
+    "blog"
+  ],
+  "author": "ChalkPE",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ChalkPE/chalkpe.github.io/issues"
+  },
+  "homepage": "https://github.com/ChalkPE/chalkpe.github.io#readme",
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-env": "^1.4.0",
+    "cross-env": "^4.0.0",
+    "standard": "^10.0.1",
+    "webpack": "^2.4.1",
+    "webpack-dev-server": "^2.4.2"
+  }
+}
