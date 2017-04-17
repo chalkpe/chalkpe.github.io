@@ -1,15 +1,25 @@
 ---
-layout: page
+layout: default
 title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
+## 박준영 (Chalk)
+- Born on 17 Jan, 2000
+- Web programming beginner
+- Studying at [Korea Digital Media Highschool](http://dimigo.hs.kr)
 
-You can find the source code for the Jekyll new theme at:
-{% include icon-github.html username="jekyll" %} /
-[minima](https://github.com/jekyll/minima)
+## Likes
+### JavaScript
+**[Node.js](https://nodejs.org/en/)**,
+[webpack](https://webpack.github.io/),
+[Vue.js](https://vuejs.org/),
+[Babel](http://babeljs.io/),
+[Standard Style](http://standardjs.com/),
+[Koa](http://koajs.com/),
+[Socket.IO](https://socket.io/)
 
-You can find the source code for Jekyll at
-{% include icon-github.html username="jekyll" %} /
-[jekyll](https://github.com/jekyll/jekyll)
+### HTML/CSS
+[Pug](https://pugjs.org/),
+[Sass](http://sass-lang.com/),
+[Canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API)
