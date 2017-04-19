@@ -2,10 +2,11 @@
 layout: default
 title: About
 permalink: /about/
+published: true
 ---
 
 ## 박준영 (Chalk)
-- Born on 17 Jan, 2000
+- Born on 17 June, 2000
 - Web programming beginner
 - Studying at [Korea Digital Media Highschool](http://dimigo.hs.kr)
 
