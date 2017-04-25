@@ -5,8 +5,8 @@
 // Typography
 // =============================================================================
 
-$sans-serif: "Lato", Helvetica, Arial, sans-serif;
-$serif: "Cormorant Garamond", Courier, serif;
+$sans-serif: "Lato", "Noto Sans KR", Helvetica, Arial, sans-serif;
+$serif: "Noto Serif KR", Courier, serif;
 $base-font-family: $sans-serif;
 $base-font-weight: 400;
 $base-font-weight-bold: 700;
@@ -27,7 +27,7 @@ $brand-warning: #f1c90b;
 // Grid
 
 $columns: 12;
-$max-width: 650px;
+$max-width: 1080px;
 $gutter: 20px;
 $one-column: 100% / $columns;
 $negative-gutter: 0 - $gutter;

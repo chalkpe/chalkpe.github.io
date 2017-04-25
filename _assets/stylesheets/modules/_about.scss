@@ -3,8 +3,21 @@
 // =============================================================================
 
 .about {
-  padding: 100px 0;
+  padding: 30px 0 60px 0;
+
   h1 {
-    margin: 50px 0 15px;
+    margin: 40px 0 10px;
+  }
+
+  h2 {
+    margin-top: 10px;
+  }
+
+  img {
+    max-width: 256px;
+  }
+
+  ul {
+    padding-left: 15px;
   }
 }
