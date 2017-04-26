@@ -1,4 +1,0 @@
----
-slug: blog
-name: Blog
----

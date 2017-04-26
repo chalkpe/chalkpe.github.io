@@ -1,5 +1,8 @@
 <nav class="header-nav reveal">
-  <a href="{{ '/' | relative_url }}" class="header-logo" title="{{ site.name }}">{{ site.name }}</a>
+  <a href="{{ '/' | relative_url }}" class="header-logo" title="{{ site.name }}">
+    {{ site.name }}
+    {% if page.subtitle %}<span class="subtitle">{{ page.subtitle }}</span>{% endif %}
+  </a>
   <ul class="header-links">
     {% if site.about_enabled == true %}
       <li>

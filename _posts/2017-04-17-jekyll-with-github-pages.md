@@ -1,7 +1,8 @@
 ---
 layout: post
 title: GitHub Pages에 Jekyll 블로그 만들기
-tags: [blog, jekyll]
+date: 2017-04-17 22:38:20 +0900
+tags: [jekyll, blog, tutorial, web]
 ---
 
 ## RubyGems 설치하기

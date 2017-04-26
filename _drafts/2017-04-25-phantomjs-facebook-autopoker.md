@@ -1,6 +1,10 @@
 ---
-published: false
+layout: post
+title: "[PhantomJS] Facebook 자동으로 콕 찌르기"
+date: 2017-04-25 10:23:49 +0900
+tags: [web, programming, javascript]
 ---
+
 ## 콕 찔러보기?
 [Facebook](https://www.facebook.com/)의 **콕 찔러보기**는 말 그대로 친구를 콕 찌르는 기능입니다. 찔린 친구에게 알림이 가는 것 외에는 아무 짝에도 쓸 곳이 없지만, 서로 찌른 횟수를 알려 주기 때문에 SNS의 순기능인 **시간 낭비**에는 정말로 끝내주는 기능이죠. 자세한 설명은 [Facebook Help Centre](https://www.facebook.com/help/451424538215150)에서 읽어 보세요.
 
