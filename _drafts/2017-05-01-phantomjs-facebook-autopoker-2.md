@@ -26,6 +26,35 @@ npm install --save phantomjs-prebuilt
 
 정도입니다. 중요한 건 이 모든 작업이 수행되는 곳이 내 브라우저의 페북 페이지가 아니라는 거죠!
 
+## PhantomJS로 Facebook 로그인하기
+고통과 인내의 시간이 다시 돌아왔습니다. 일단 우리가 해야 할 건
+
+1. 이메일 칸에 사용자 이메일 입력하기
+1. 비밀번호 칸에 사용자 비밀번호 입력하기
+1. 다 입력하고 나서 로그인 버튼 누르기
+
+이렇게 세 가지입니다. <https://www.facebook.com/pokes> 페이지에 접속하고 F12를 눌러 게임을 시작해 보죠.
+
+{%
+  include image.html
+  alt="Facebook 로그인 페이지"
+  path="phantomjs-facebook-autopoker/facebook-login.gif"
+  caption="이거, 생각보다 일찍 끝나겠는데?"
+%}
+
+고맙게도 이번엔 필요한 세 요소에 전부 ID가 설정돼 있어서 굳이 CSS 셀렉터를 고민하지 않아도 됩니다. 바로 써 보죠.
+
+
+{% highlight js %}
+var emailInput = document.getElementById('email')
+if (emailInput) emailInput.value = 'doge@example.com'
+
+var passwordInput = document.getElementById('pass')
+if (passwordInput) passwordInput.value = 'p@ssw0rd'
+
+var loginButton = document.getElementById('loginbutton')
+if (loginButton) loginButton.click()
+{% endhighlight %}
 
 [PhantomJS]: http://phantomjs.org
 [Medium/phantomjs]: https://github.com/Medium/phantomjs

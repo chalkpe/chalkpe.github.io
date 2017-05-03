@@ -167,6 +167,17 @@
     margin-bottom: 0;
     vertical-align: middle;
   }
+  .image {
+    img {
+      // margin: 0 auto;
+      margin-bottom: 12px;
+    }
+    .caption {
+      font-size: 18px;
+      margin-left: 0px;
+      padding-left: 12px; 
+    }
+  }
 }
 
 .article-comments {

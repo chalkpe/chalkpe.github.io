@@ -1,3 +1,7 @@
-<a class="fluidbox-trigger" href="{% if include.path-detail %}{% asset_path '{{ include.path-detail }}' %}{% else %}{% asset_path '{{ include.path }}' %}{% endif %}">
-  <img src="{% asset_path '{{ include.path }}' %}" alt="{{ include.alt }}" />
-</a>
+<div class="image">
+  <a class="fluidbox-trigger" href="{% if include.path-detail %}{% asset_path '{{ include.path-detail }}' %}{% else %}{% asset_path '{{ include.path }}' %}{% endif %}">
+    <img src="{% asset_path '{{ include.path }}' %}" alt="{{ include.alt }}" />
+  </a>
+
+  {% if include.caption %}<blockquote class="caption">{{ include.caption }}</blockquote>{% endif %}
+</div>
