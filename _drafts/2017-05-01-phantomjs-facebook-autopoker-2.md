@@ -56,6 +56,18 @@ var loginButton = document.getElementById('loginbutton')
 if (loginButton) loginButton.click()
 {% endhighlight %}
 
+## Node.js로 PhantomJS 조작하기
+기본적으로 [PhantomJS]는 완전히 별개의 프로그램이기 때문에, Node.js에서 사용하려면 `child_process` 모듈로 [PhantomJS] 프로세스를 만들어 주어야 합니다. 다행히도 `phantomjs-prebuilt` 패키지에서 더 간단하게 하는 방법을 제공하고 있으니 그걸 따르도록 하죠.
+
+{% highlight js %}
+const phantomjs = require('phantomjs-prebuilt')
+const program = phantomjs.exec('script.js', 'arg1', 'arg2')
+
+program.stdout.pipe(process.stdout)
+program.stderr.pipe(process.stderr)
+program.on('exit', code => console.log('Exit code:', code))
+{% endhighlight %}
+
 [PhantomJS]: http://phantomjs.org
 [Medium/phantomjs]: https://github.com/Medium/phantomjs
 [1편 코드]: {% link _posts/2017-04-25-phantomjs-facebook-autopoker-1.md %}#코드-작성하기
