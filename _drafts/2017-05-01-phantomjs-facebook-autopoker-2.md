@@ -68,6 +68,19 @@ program.stderr.pipe(process.stderr)
 program.on('exit', code => console.log('Exit code:', code))
 {% endhighlight %}
 
+## PhantomJS에서 ES6 사용하기
+안타깝게도 PhantomJS의 자바스크립트 엔진은 ES6 문법을 지원하지 않습니다. 하지만 Babel을 끼얹는다면 조금 복잡해지겠지만 불가능하지는 않죠!
+
+{% highlight js %}
+function getPokeBackButtons () {
+  const root = document.getElementById('contentArea')
+  const pokes = root.querySelector('div._4-u2._xct._4-u8:first-child')
+  return [...pokes.querySelectorAll('a._42ft._4jy0._4jy3._4jy1.selected._51sy')]
+}
+
+setInterval(() => getPokeBackButtons().forEach(a => a.click()), 100)
+{% endhighlight %}
+
 [PhantomJS]: http://phantomjs.org
 [Medium/phantomjs]: https://github.com/Medium/phantomjs
 [1편 코드]: {% link _posts/2017-04-25-phantomjs-facebook-autopoker-1.md %}#코드-작성하기
