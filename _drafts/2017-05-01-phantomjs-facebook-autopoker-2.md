@@ -36,7 +36,9 @@ npm install --save phantomjs-prebuilt
 
 {% highlight js %}
 var webpage = require('webpage') // (1)
+
 var page = webpage.create()
+page.settings.userAgent = 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0'
 
 page.open('https://www.facebook.com/pokes', function (status) { // (2)
   console.log('status is ' + status)
@@ -46,7 +48,6 @@ page.open('https://www.facebook.com/pokes', function (status) { // (2)
     console.log('url is now ' + page.url) // (4)
   }, 10000)
 })
-
 {% endhighlight %}
 
 코드에 대해서 설명을 하자면,
@@ -72,25 +73,75 @@ url is now https://www.facebook.com/login.php?next=https%3A%2F%2Fwww.facebook.co
   include image.html
   alt="Facebook 로그인 페이지"
   path="phantomjs-facebook-autopoker/facebook-login.gif"
-  caption="이거, 생각보다 일찍 끝나겠는데?"
+  caption="이거... 생각보다 일찍 끝나겠는데?"
 %}
 
 고맙게도 이번엔 필요한 세 요소에 전부 ID가 설정돼 있어서 굳이 적절한 CSS 셀렉터를 고민하지 않아도 됩니다.
 `document.getElementById` 메서드를 사용해서 이렇게 간단하게 우리가 필요한 것들을 쏙쏙 뽑아올 수 있죠!
 
 {% highlight js %}
-var emailInput = document.getElementById('email')
-if (emailInput) emailInput.value = 'doge@example.com'
+function login (email, password) {
+  var emailInput = document.getElementById('email')
+  if (emailInput) emailInput.value = email
 
-var passwordInput = document.getElementById('pass')
-if (passwordInput) passwordInput.value = 'p@ssw0rd'
+  var passwordInput = document.getElementById('pass')
+  if (passwordInput) passwordInput.value = password
 
-var loginButton = document.getElementById('loginbutton')
-if (loginButton) loginButton.click()
+  var loginButton = document.getElementById('loginbutton')
+  if (loginButton) loginButton.click()
+}
+{% endhighlight %}
+
+PhantomJS에서 DOM에 접근하려면 [`page.evaluate()`][Evaluate] 메서드에 실행할 코드를 함수로 전달해야 합니다. 이 때 전달된 함수는 샌드박스에서 실행되기 때문에 함수 바깥의 변수에 접근할 수 없다는 점에 유의하세요.
+
+{% highlight js %}
+// 2번째 인자부터는 login 함수의 파라미터로 전달됩니다
+page.evaluate(login, "wow@doge.com", "p@ssw0rd")
+{% endhighlight %}
+
+### 현재 페이지 캡쳐하기
+그럼 이제 로그인이 다 되었는지 볼까요? `page.render()` 메서드를 사용해 현재 열려 있는 페이지를 이미지로 확인할 수 있습니다. 로그인에 조금 시간이 걸리기 때문에 `setTimeout`으로 딜레이를 주는 걸 잊지 마세요.
+
+{% highlight js %}
+// 페이지 해상도를 FHD로 조정합니다
+page.viewportSize = { width: 1920, height: 1080 }
+
+// 10초 후 현재 디렉토리에 저장됩니다
+setTimeout(function () { page.render('facebook.png') }, 10000)
+{% endhighlight %}
+
+## 지금까지의 코드: 로그인까지
+{% highlight js %}
+var page = require('webpage').create()
+page.settings.userAgent = 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0'
+
+function login (email, password) {
+  var emailInput = document.getElementById('email')
+  if (emailInput) emailInput.value = email
+
+  var passwordInput = document.getElementById('pass')
+  if (passwordInput) passwordInput.value = password
+
+  var loginButton = document.getElementById('loginbutton')
+  if (loginButton) loginButton.click()
+}
+
+page.open('https://www.facebook.com/pokes', function (status) {
+  console.log('status is ' + status)
+  console.log('url is ' + page.url)
+
+  setTimeout(function () {
+    console.log('url is now ' + page.url)
+    page.evaluate(login, "wow@doge.com", "p@ssw0rd")
+
+    page.viewportSize = { width: 1920, height: 1080 }
+    setTimeout(function () { page.render('facebook.png') }, 10000)
+  }, 10000)
+})
 {% endhighlight %}
 
 ## Node.js로 PhantomJS 조작하기
-기본적으로 [PhantomJS]는 완전히 별개의 프로그램이기 때문에, Node.js에서 사용하려면 `child_process` 모듈로 [PhantomJS] 프로세스를 만들어 주어야 합니다. 다행히도 `phantomjs-prebuilt` 패키지에서 더 간단하게 하는 방법을 제공하고 있으니 그걸 따르도록 하죠.
+여태껏 `autopoker.js` 파일을 실행하려고 길고 긴 커맨드를 직접 쳐 줘야 하는 걸 Node.js로 간단하게 처리해 봅시다. 기본적으로 [PhantomJS]는 완전히 별개의 프로그램이기 때문에, Node.js에서 사용하려면 `child_process` 모듈로 [PhantomJS] 프로세스를 만들어 주어야 합니다. 다행히도 `phantomjs-prebuilt` 패키지에서 더 간단하게 하는 방법을 제공하고 있으니 그걸 따르도록 하죠.
 
 {% highlight js %}
 const phantomjs = require('phantomjs-prebuilt')
@@ -117,5 +168,6 @@ setInterval(() => getPokeBackButtons().forEach(a => a.click()), 100)
 [Pokes]: https://www.facebook.com/pokes
 [PhantomJS]: http://phantomjs.org
 [Web Page]: http://phantomjs.org/api/webpage/
+[Evaluate]: http://phantomjs.org/api/webpage/method/evaluate.html
 [Medium/phantomjs]: https://github.com/Medium/phantomjs
 [1편 코드]: {% link _posts/2017-04-25-phantomjs-facebook-autopoker-1.md %}#코드-작성하기
