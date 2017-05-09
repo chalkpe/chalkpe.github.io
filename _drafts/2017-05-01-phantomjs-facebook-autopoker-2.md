@@ -16,12 +16,26 @@ tags: [web, programming, javascript]
 간단한 프로그램을 만들 겁니다. 핵심은 이 모든 작업이 수행되는 곳이 내 브라우저의 페북 페이지가 아니라는 거죠!
 
 ## PhantomJS 설치
-[직접 설치할 수도 있지만](http://phantomjs.org/download.html), 어떤 플랫폼이든 상관없이 간단하게 [PhantomJS]를 설치해 주는 `phantomjs-prebuilt` [래퍼][Medium/phantomjs]를 이용하도록 하겠습니다. 다음 명령들을 콘솔에 복붙하고 [노래](https://youtu.be/h--P8HzYZ74)나 한 곡 듣고 계세요 ㅎㅎ.
+[직접 설치할 수도 있지만](http://phantomjs.org/download.html), 어떤 플랫폼이든 상관없이 간단하게 [PhantomJS]를 설치해 주는 `phantomjs-prebuilt` [래퍼][Wrapper]를 이용하도록 하겠습니다. 다음 명령들을 콘솔에 입력하고 설치가 끝날 때까지 [노래](https://youtu.be/h--P8HzYZ74)나 한 곡 듣고 계세요.
 
 {% highlight bash %}
 mkdir facebook-autopoker
 cd facebook-autopoker && npm init
 npm install --save phantomjs-prebuilt
+{% endhighlight %}
+
+### npm 스크립트 추가하기
+매번 [PhantomJS] 실행한다고 `node_modules/.bin/phantomjs autopoker.js` 같은 긴 커맨드를 입력할 수는 없는 노릇이죠. `package.json` 파일의 `scripts` 필드에 `start` 스크립트를 추가하면 `npm start` 한 방에 실행할 수 있게 됩니다.
+
+{% highlight json %}
+{
+  ...
+  "scripts": {
+    "start": "phantomjs autopoker.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+  ...
+}
 {% endhighlight %}
 
 ## PhantomJS로 Facebook 로그인하기
@@ -32,8 +46,6 @@ npm install --save phantomjs-prebuilt
 1. 로그인 버튼을 누르고 로그인이 잘 됐기를 간절히 기다리기
 
 ### 페이지 이동
-다음 코드를 `autopoker.js` 파일에 입력하고, `node_modules/.bin/phantomjs autopoker.js` 커맨드로 실행해 보세요.
-
 {% highlight js %}
 var webpage = require('webpage') // (1)
 
@@ -50,15 +62,13 @@ page.open('https://www.facebook.com/pokes', function (status) { // (2)
 })
 {% endhighlight %}
 
-코드에 대해서 설명을 하자면,
-
-- `(1)`의 `webpage`는 `npm` 모듈이 아닌 PhantomJS API의 [Web Page] 모듈입니다.
-- `(2)`의 콜백은 [Pokes] 페이지가 열리거나 오류가 났을 때 호출됩니다. `status` 인자의 값은 `success` 또는 `fail`입니다.
-- `(3)`에서는 현재 페이지의 URL을 출력합니다. 페이지가 열리자마자 출력되므로 <https://www.facebook.com/pokes>일 겁니다.
-- `(4)`에서는 10초 후 다시 현재 페이지의 URL을 출력합니다. 만약 페이지가 리다이렉트됐다면 출력 결과가 다르겠죠.
+1. `npm` 모듈이 아닌 PhantomJS API의 [Web Page] 모듈입니다.
+1. [Pokes] 페이지가 열리거나 오류가 났을 때 호출됩니다. `status`는 `success` 또는 `fail`입니다.
+1. 현재 페이지의 URL을 출력합니다. 리다이렉트되기 전입니다.
+1. 10초 후 다시 현재 페이지의 URL을 출력합니다.
 
 {% highlight bash %}
-$ node_modules/.bin/phantomjs autopoker.js
+$ npm start
 status is success
 url is https://www.facebook.com/pokes
 url is now https://www.facebook.com/login.php?next=https%3A%2F%2Fwww.facebook.com%2Fpokes
@@ -140,18 +150,6 @@ page.open('https://www.facebook.com/pokes', function (status) {
 })
 {% endhighlight %}
 
-## Node.js로 PhantomJS 조작하기
-여태껏 `autopoker.js` 파일을 실행하려고 길고 긴 커맨드를 직접 쳐 줘야 하는 걸 Node.js로 간단하게 처리해 봅시다. 기본적으로 [PhantomJS]는 완전히 별개의 프로그램이기 때문에, Node.js에서 사용하려면 `child_process` 모듈로 [PhantomJS] 프로세스를 만들어 주어야 합니다. 다행히도 `phantomjs-prebuilt` 패키지에서 더 간단하게 하는 방법을 제공하고 있으니 그걸 따르도록 하죠.
-
-{% highlight js %}
-const phantomjs = require('phantomjs-prebuilt')
-const program = phantomjs.exec('script.js', 'arg1', 'arg2')
-
-program.stdout.pipe(process.stdout)
-program.stderr.pipe(process.stderr)
-program.on('exit', code => console.log('Exit code:', code))
-{% endhighlight %}
-
 ## PhantomJS에서 ES6 사용하기
 안타깝게도 PhantomJS의 자바스크립트 엔진은 ES6 문법을 지원하지 않습니다. 하지만 Babel을 끼얹는다면 조금 복잡해지겠지만 불가능하지는 않죠!
 
@@ -169,5 +167,5 @@ setInterval(() => getPokeBackButtons().forEach(a => a.click()), 100)
 [PhantomJS]: http://phantomjs.org
 [Web Page]: http://phantomjs.org/api/webpage/
 [Evaluate]: http://phantomjs.org/api/webpage/method/evaluate.html
-[Medium/phantomjs]: https://github.com/Medium/phantomjs
+[Wrapper]: https://github.com/Medium/phantomjs
 [1편 코드]: {% link _posts/2017-04-25-phantomjs-facebook-autopoker-1.md %}#코드-작성하기
