@@ -163,7 +163,7 @@ function clickPokeBackButtons () {
 setInterval(clickPokeBackButtons, 100)
 {% endhighlight %}
 
-## 최종 코드
+## 최종 코드: `autopoker.js`
 {% highlight js %}
 var args = require('system').args
 var page = require('webpage').create()
@@ -212,6 +212,7 @@ function start (status) {
 page.open('https://www.facebook.com/pokes', start)
 {% endhighlight %}
 
+끝! 드디어 페이스북 페이지를 열어 놓지 않아도 친구들을 마음껏 찌를 수 있게 되었습니다 :tada:
 
 [Pokes]: https://www.facebook.com/pokes
 [PhantomJS]: http://phantomjs.org
