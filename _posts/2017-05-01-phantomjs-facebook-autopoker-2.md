@@ -2,7 +2,7 @@
 layout: post
 title: PhantomJS로 "Facebook 콕 찔러보기" 자동화하기 (#2)
 date: 2017-05-01 16:52:11 +0900
-tags: [web, programming, javascript]
+tags: [web, programming, javascript, phantomjs, facebook]
 ---
 
 ## 개요
