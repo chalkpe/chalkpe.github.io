@@ -58,7 +58,7 @@ npm i --save-dev standard
   path="phantomjs-instagram-crawler/page.gif"
 %}
 
-자, 다시 페이지 구조를 살펴 보면 `article` 요소 바래 아래의 `div` 두 개 중 두 번째 게 우리가 필요한 **최근 게시글**들이 옹기종기 모여 있는 그리드입니다. CSS 셀렉터로 표현하면 `article > div:nth-of-type(2)`이 되죠.
+자, 다시 페이지 구조를 살펴 보면 `article` 요소 바래 아래의 `div` 중에서 마지막 게 우리가 필요한 **최근 게시글**들이 옹기종기 모여 있는 그리드입니다. CSS 셀렉터로 표현하면 `article > div:last-of-type`이 되죠.
 
 {%
   include image.html
@@ -86,7 +86,7 @@ page.open(url, status => {
 
 function parse () {
   // 최근 게시글 그리드의 셀들을 선택합니다
-  const query = 'article > div:nth-of-type(2) a[href^="/p/"]'
+  const query = 'article > div:last-of-type a[href^="/p/"]'
 
   // NodeList 객체를 배열로 변환합니다
   const pictures = Array.prototype.slice.call(document.querySelectorAll(query))
