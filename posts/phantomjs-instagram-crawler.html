@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Chalkboard | 인스타그램 최근 게시글 검색 API 만들기</title>
+  <meta name="description" content="다시는 반복하고 싶지 않은 끔찍한 상황들의 적절한 해결 방법을 기록해 두는 작은 블로그">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="인스타그램 최근 게시글 검색 API 만들기">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://chalkpe.github.io/posts/phantomjs-instagram-crawler">
+  <meta property="og:description" content="다시는 반복하고 싶지 않은 끔찍한 상황들의 적절한 해결 방법을 기록해 두는 작은 블로그">
+  <meta property="og:site_name" content="Chalkboard">
+  <meta property="og:image" content="https://chalkpe.github.io/assets/og-image.png">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://chalkpe.github.io/posts/phantomjs-instagram-crawler">
+  <meta name="twitter:title" content="인스타그램 최근 게시글 검색 API 만들기">
+  <meta name="twitter:description" content="다시는 반복하고 싶지 않은 끔찍한 상황들의 적절한 해결 방법을 기록해 두는 작은 블로그">
+  <meta name="twitter:image" content="https://chalkpe.github.io/assets/og-image.png">
+
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link href="https://chalkpe.github.io/feed.xml" type="application/rss+xml" rel="alternate" title="Chalkboard Last 10 blog posts" />
+
+  
+
+  
+    <link type="text/css" rel="stylesheet" href="/assets/light.css">
+  
+</head>
+
+<body>
+  <main role="main">
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav reveal">
+  <a href="/" class="header-logo" title="Chalkboard">
+    Chalkboard
+    
+  </a>
+  <ul class="header-links">
+    
+      <li>
+        <a href="/about" title="About me">
+          <span class="icon icon-android-person"></span>
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="https://twitter.com/amato17" target="_blank" title="Twitter">
+          <span class="icon icon-social-twitter"></span>
+        </a>
+      </li>
+    
+    
+    
+      <li>
+        <a href="https://github.com/ChalkPE" target="_blank" title="GitHub">
+          <span class="icon icon-social-github"></span>
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="mailto:chalkpe@gmail.com" title="Email">
+          <span class="icon icon-at"></span>
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="/feed.xml" target="_blank" title="RSS">
+          <span class="icon icon-social-rss"></span>
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+        <article class="article reveal">
+          <header class="article-header">
+            <h1>인스타그램 최근 게시글 검색 API 만들기</h1>
+            <p></p>
+            <div class="article-list-footer">
+              <span class="article-list-date">
+                May 18, 2017
+              </span>
+              <span class="article-list-divider">-</span>
+              <span class="article-list-minutes">
+                
+                
+                  6 minute read
+                
+              </span>
+              <span class="article-list-divider">-</span>
+              <div class="article-list-tags">
+                
+                  <a href="/tag/web">web</a>
+                
+                  <a href="/tag/programming">programming</a>
+                
+                  <a href="/tag/javascript">javascript</a>
+                
+                  <a href="/tag/phantomjs">phantomjs</a>
+                
+                  <a href="/tag/instagram">instagram</a>
+                
+              </div>
+            </div>
+          </header>
+
+          <div class="article-content">
+            <h2 id="간단한-개요">간단한 개요</h2>
+<ul>
+  <li><a href="https://www.instagram.com/">Instagram</a>에서 특정 해시태그가 달려 있는 최근 게시물들을 받아오는 API가 필요함</li>
+  <li>공식 API를 찾아봤지만… 이건 쓰기가 너무나도 복잡해 보여서 빠르게 포기함</li>
+  <li>그냥 직접 하나 만들기로 하고 인스타그램 웹 페이지를 자세히 살펴 봄</li>
+  <li>역시나 React 기반이어서 <a href="http://phantomjs.org/">PhantomJS</a>로 크롤링을 할 수밖에 없는 상황이 됨</li>
+  <li>그래도 이번에는 <a href="http://babeljs.io/">Babel</a> 돌려서 ES7 문법으로 깔끔하게 짜 보기로 함</li>
+</ul>
+
+<h2 id="프로젝트-틀-잡기">프로젝트 틀 잡기</h2>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># package.json 생성</span>
+<span class="gp">$ </span>npm init
+
+<span class="c"># PhantomJS</span>
+<span class="gp">$ </span>npm i --save phantomjs-prebuilt
+
+<span class="c"># Babel CLI, env 및 stage-0 프리셋</span>
+<span class="gp">$ </span>npm i --save-dev babel-cli babel-preset-env babel-preset-stage-0
+
+<span class="c"># 코드 스타일 검사</span>
+npm i --save-dev standard</code></pre></figure>
+
+<p>설치가 끝나면 우리의 작업을 빠르고 편하게 해 줄 스크립트들을 추가합니다. 각각 <code class="highlighter-rouge">npm run compile</code> 커맨드는 ES7 문법으로 작성된 코드를 <a href="http://phantomjs.org/">PhantomJS</a>에서 돌아갈 수 있도록 변환해 주고, <code class="highlighter-rouge">npm start</code> 커맨드는 변환 후에 코드를 실행하며, <code class="highlighter-rouge">npm test</code> 커맨드는 먼저 코드 스타일을 검사한 후 코드를 변환해 줍니다.</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span><span class="w">
+  </span><span class="err">...</span><span class="w">
+  </span><span class="nt">"main"</span><span class="p">:</span><span class="w"> </span><span class="s2">"index.js"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"scripts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"compile"</span><span class="p">:</span><span class="w"> </span><span class="s2">"babel index.js -o phantom.js"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"start"</span><span class="p">:</span><span class="w"> </span><span class="s2">"npm run compile &amp;&amp; phantomjs phantom.js"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"test"</span><span class="p">:</span><span class="w"> </span><span class="s2">"standard &amp;&amp; npm run compile"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+  </span><span class="err">...</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
+
+<p>마지막으로 <code class="highlighter-rouge">.babelrc</code> 파일을 작성합니다. <code class="highlighter-rouge">stage-0</code> 프리셋을 적용해서 끝내주는 ES7 문법을 사용할 수 있게 됐습니다.</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span><span class="w"> </span><span class="nt">"presets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"env"</span><span class="p">,</span><span class="w"> </span><span class="s2">"stage-0"</span><span class="p">]</span><span class="w"> </span><span class="p">}</span></code></pre></figure>
+
+<h2 id="작업-시작">작업 시작!</h2>
+<h3 id="css-셀렉터-확인하기">CSS 셀렉터 확인하기</h3>
+<p>인스타그램에서 특정 해시태그로 검색하는 기능을 잘 활용하면 최근 게시글들을 받아올 수 있습니다. 이것저것 검색해 보며 URL을 확인해 보니 <a href="https://www.instagram.com/explore/tags/태그/">https://www.instagram.com/explore/tags/태그/</a> 형식으로 되어 있는 게 딱 보이네요!</p>
+
+<div class="image">
+  <a class="fluidbox-trigger" href="/assets/phantomjs-instagram-crawler/page.gif">
+    <img src="/assets/phantomjs-instagram-crawler/page.gif" alt="Instagram tags" />
+  </a>
+
+  
+</div>
+
+<p>자, 다시 페이지 구조를 살펴 보면 <code class="highlighter-rouge">article</code> 요소 바래 아래의 <code class="highlighter-rouge">div</code> 두 개 중 두 번째 게 우리가 필요한 <strong>최근 게시글</strong>들이 옹기종기 모여 있는 그리드입니다. CSS 셀렉터로 표현하면 <code class="highlighter-rouge">article &gt; div:nth-of-type(2)</code>이 되죠.</p>
+
+<div class="image">
+  <a class="fluidbox-trigger" href="/assets/phantomjs-instagram-crawler/image.png">
+    <img src="/assets/phantomjs-instagram-crawler/image.png" alt="Instagram image tile" />
+  </a>
+
+  
+</div>
+
+<p>그리드 내부를 다시 자세히 보면, <code class="highlighter-rouge">a</code> 태그에 <strong>게시글 링크</strong>가 연결되어 있고, 그 안의 <code class="highlighter-rouge">img</code> 태그에 <strong>게시글 내용</strong>과 <strong>이미지 링크</strong>가 예쁘게 모여 있는 걸 볼 수 있습니다. 다만 <code class="highlighter-rouge">a</code> 태그의 경우, 맨 아래의 <code class="highlighter-rouge">Load more</code> 버튼까지 함께 선택될 수 있으므로 연결된 링크가 게시글인지 확인해 봐야 합니다. 최종적인 CSS 셀렉터는 <code class="highlighter-rouge">a[href^="/p/"] img</code>가 됩니다.</p>
+
+<h3 id="phantomjs-스크립트-작성하기">PhantomJS 스크립트 작성하기</h3>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="cm">/* eslint-env phantomjs */</span>
+<span class="kr">import</span> <span class="nx">webpage</span> <span class="nx">from</span> <span class="s1">'webpage'</span>
+
+<span class="kr">const</span> <span class="nx">page</span> <span class="o">=</span> <span class="nx">webpage</span><span class="p">.</span><span class="nx">create</span><span class="p">()</span> <span class="c1">// 페이지 객체를 만들고, 최신 버전의 Chrome으로 둔갑합니다.</span>
+<span class="nx">page</span><span class="p">.</span><span class="nx">settings</span><span class="p">.</span><span class="nx">userAgent</span> <span class="o">=</span> <span class="s1">'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'</span>
+
+<span class="kr">const</span> <span class="nx">tag</span> <span class="o">=</span> <span class="nb">encodeURIComponent</span><span class="p">(</span><span class="s1">'디미고'</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">'https://www.instagram.com/explore/tags/'</span> <span class="o">+</span> <span class="nx">tag</span>
+
+<span class="nx">page</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">status</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">status</span> <span class="o">!==</span> <span class="s1">'success'</span><span class="p">)</span> <span class="k">return</span> <span class="nx">phantom</span><span class="p">.</span><span class="nx">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">page</span><span class="p">.</span><span class="nx">evaluate</span><span class="p">(</span><span class="nx">parse</span><span class="p">),</span> <span class="kc">null</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="p">})</span>
+
+<span class="kd">function</span> <span class="nx">parse</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// 최근 게시글 그리드의 셀들을 선택합니다</span>
+  <span class="kr">const</span> <span class="nx">query</span> <span class="o">=</span> <span class="s1">'article &gt; div:nth-of-type(2) a[href^="/p/"]'</span>
+
+  <span class="c1">// NodeList 객체를 배열로 변환합니다</span>
+  <span class="kr">const</span> <span class="nx">pictures</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="nx">query</span><span class="p">))</span>
+
+  <span class="k">return</span> <span class="nx">pictures</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">a</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">img</span> <span class="o">=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">'img[id^="pImage"]'</span><span class="p">)</span> <span class="c1">// 셀 내의 이미지</span>
+    <span class="kr">const</span> <span class="nx">text</span> <span class="o">=</span> <span class="nx">img</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">'alt'</span><span class="p">)</span> <span class="o">||</span> <span class="s1">''</span> <span class="c1">// 개행 문자가 포함될 수 있음</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="nx">text</span><span class="p">,</span> <span class="c1">// 게시글 내용</span>
+      <span class="na">image</span><span class="p">:</span> <span class="nx">img</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">'src'</span><span class="p">),</span> <span class="c1">// 이미지 링크</span>
+      <span class="na">link</span><span class="p">:</span> <span class="s1">'https://www.instagram.com'</span> <span class="o">+</span> <span class="nx">a</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">'href'</span><span class="p">),</span> <span class="c1">// 게시글 링크</span>
+      <span class="na">tags</span><span class="p">:</span> <span class="p">(</span><span class="nx">text</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/#</span><span class="se">([^\s</span><span class="sr">#</span><span class="se">]</span><span class="sr">+</span><span class="se">)</span><span class="sr">/g</span><span class="p">)</span> <span class="o">||</span> <span class="p">[]).</span><span class="nx">map</span><span class="p">(</span><span class="nx">tag</span> <span class="o">=&gt;</span> <span class="nx">tag</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="c1">// 태그 목록</span>
+    <span class="p">}</span>
+  <span class="p">})</span>
+<span class="p">}</span></code></pre></figure>
+
+<p><code class="highlighter-rouge">npm start</code> 커맨드로 실행해 보면 깔끔하게 크롤링이 된 걸 확인할 수 있습니다.</p>
+
+<h2 id="문제점의-발견">문제점의 발견</h2>
+<p>일단 <code class="highlighter-rouge">#디미고</code> 태그를 검색하는 것까지는 성공했습니다. 그런데, 다른 태그를 검색하려면 코드를 매번 수정해 줘야 하는 걸까요? 저번과는 다르게 API를 제공해 줘야 하기 떄문에 <code class="highlighter-rouge">system.args</code>를 이용하기에도 애매한 상황입니다.</p>
+
+<h2 id="webserver-모듈-활용하기">webserver 모듈 활용하기</h2>
+<p>다행히도 <a href="http://phantomjs.org/">PhantomJS</a> API에서 <a href="http://phantomjs.org/api/webserver/">webserver</a> 모듈을 제공해 주고 있습니다. 아직 <code class="highlighter-rouge">EXPERIMENTAL</code> 상태이긴 하지만, 뭐 어때요! 웹 서버를 만들어서 원하는 태그를 마음껏 검색할 수 있게 개조해 봅시다.</p>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="cm">/* eslint-env phantomjs */</span>
+<span class="kr">import</span> <span class="nx">webpage</span> <span class="nx">from</span> <span class="s1">'webpage'</span>
+<span class="kr">import</span> <span class="nx">webserver</span> <span class="nx">from</span> <span class="s1">'webserver'</span>
+
+<span class="nx">webserver</span><span class="p">.</span><span class="nx">create</span><span class="p">().</span><span class="nx">listen</span><span class="p">(</span><span class="mi">2409</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">url</span> <span class="o">===</span> <span class="s1">'/favicon.ico'</span><span class="p">)</span> <span class="k">return</span> <span class="c1">// 파비콘 같은 건 사치입니다</span>
+
+  <span class="kr">const</span> <span class="nx">page</span> <span class="o">=</span> <span class="nx">webpage</span><span class="p">.</span><span class="nx">create</span><span class="p">()</span> <span class="c1">// 페이지 객체를 만들고, 최신 버전의 Chrome으로 둔갑합니다.</span>
+  <span class="nx">page</span><span class="p">.</span><span class="nx">settings</span><span class="p">.</span><span class="nx">userAgent</span> <span class="o">=</span> <span class="s1">'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'</span>
+
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">decodeURIComponent</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">url</span><span class="p">))</span> <span class="c1">// 인코딩된 태그의 원래 내용을 보여줍니다</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="s1">'Content-Type'</span><span class="p">,</span> <span class="s1">'application/json'</span><span class="p">)</span> <span class="c1">// API는 역시 JSON으로 보내 주는 게 최고!</span>
+
+  <span class="nx">page</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s1">'https://www.instagram.com/explore/tags'</span> <span class="o">+</span> <span class="nx">req</span><span class="p">.</span><span class="nx">url</span><span class="p">,</span> <span class="nx">status</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">status</span> <span class="o">!==</span> <span class="s1">'success'</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">res</span><span class="p">.</span><span class="nx">statusCode</span> <span class="o">=</span> <span class="mi">500</span>
+      <span class="nx">res</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+        <span class="na">ok</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="na">message</span><span class="p">:</span> <span class="err">`</span><span class="nx">Unable</span> <span class="nx">to</span> <span class="nx">load</span> <span class="nx">$</span><span class="p">{</span><span class="nx">req</span><span class="p">.</span><span class="nx">url</span><span class="p">}</span><span class="err">`</span>
+      <span class="p">}))</span>
+
+      <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">close</span><span class="p">()</span>
+      <span class="c1">// phantom.exit(1)에서 HTTP 500 에러를 보내는 것으로 변경했습니다</span>
+    <span class="p">}</span>
+
+    <span class="nx">res</span><span class="p">.</span><span class="nx">statusCode</span> <span class="o">=</span> <span class="mi">200</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+      <span class="na">ok</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="na">date</span><span class="p">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(),</span>
+      <span class="na">result</span><span class="p">:</span> <span class="nx">page</span><span class="p">.</span><span class="nx">evaluate</span><span class="p">(</span><span class="nx">parse</span><span class="p">)</span>
+    <span class="p">}))</span>
+
+    <span class="nx">res</span><span class="p">.</span><span class="nx">close</span><span class="p">()</span>
+    <span class="c1">// JSON을 콘솔에 출력하는 것에서 HTTP 200 응답을 보내는 것으로 변경했습니다</span>
+  <span class="p">})</span>
+<span class="p">})</span>
+
+<span class="kd">function</span> <span class="nx">parse</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// 최근 게시글 그리드의 셀들을 선택합니다</span>
+  <span class="kr">const</span> <span class="nx">query</span> <span class="o">=</span> <span class="s1">'article &gt; div:nth-of-type(2) a[href^="/p/"]'</span>
+
+  <span class="c1">// NodeList 객체를 배열로 변환합니다</span>
+  <span class="kr">const</span> <span class="nx">pictures</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="nx">query</span><span class="p">))</span>
+
+  <span class="k">return</span> <span class="nx">pictures</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">a</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">img</span> <span class="o">=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">'img[id^="pImage"]'</span><span class="p">)</span> <span class="c1">// 셀 내의 이미지</span>
+    <span class="kr">const</span> <span class="nx">text</span> <span class="o">=</span> <span class="nx">img</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">'alt'</span><span class="p">)</span> <span class="o">||</span> <span class="s1">''</span> <span class="c1">// 개행 문자가 포함될 수 있음</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="nx">text</span><span class="p">,</span> <span class="c1">// 게시글 내용</span>
+      <span class="na">image</span><span class="p">:</span> <span class="nx">img</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">'src'</span><span class="p">),</span> <span class="c1">// 이미지 링크</span>
+      <span class="na">link</span><span class="p">:</span> <span class="s1">'https://www.instagram.com'</span> <span class="o">+</span> <span class="nx">a</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">'href'</span><span class="p">),</span> <span class="c1">// 게시글 링크</span>
+      <span class="na">tags</span><span class="p">:</span> <span class="p">(</span><span class="nx">text</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/#</span><span class="se">([^\s</span><span class="sr">#</span><span class="se">]</span><span class="sr">+</span><span class="se">)</span><span class="sr">/g</span><span class="p">)</span> <span class="o">||</span> <span class="p">[]).</span><span class="nx">map</span><span class="p">(</span><span class="nx">tag</span> <span class="o">=&gt;</span> <span class="nx">tag</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="c1">// 태그 목록</span>
+    <span class="p">}</span>
+  <span class="p">})</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>API 서버 완성! <a href="http://localhost:2409/wow">http://localhost:2409/wow</a>에 접속하면 <code class="highlighter-rouge">#wow</code> 태그에 해당되는 내용을 보내 줍니다!</p>
+
+
+          </div>
+
+          <div class="article-share">
+            
+            <a href="" title="Share on Twitter" onclick="window.open('https://twitter.com/home?status=%EC%9D%B8%EC%8A%A4%ED%83%80%EA%B7%B8%EB%9E%A8+%EC%B5%9C%EA%B7%BC+%EA%B2%8C%EC%8B%9C%EA%B8%80+%EA%B2%80%EC%83%89+API+%EB%A7%8C%EB%93%A4%EA%B8%B0 - https://chalkpe.github.io/posts/phantomjs-instagram-crawler by @amato17', 'newwindow', 'width=500, height=225'); return false;" data-turbolinks="false">
+              <svg enable-background="new 0 0 128 128" width="15px" version="1.1" viewBox="0 0 128 128" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="_x37__stroke"><g id="Twitter"><rect clip-rule="evenodd" fill="none" fill-rule="evenodd" height="128" width="128"/><path clip-rule="evenodd" d="M128,23.294    c-4.703,2.142-9.767,3.59-15.079,4.237c5.424-3.328,9.587-8.606,11.548-14.892c-5.079,3.082-10.691,5.324-16.687,6.526    c-4.778-5.231-11.608-8.498-19.166-8.498c-14.493,0-26.251,12.057-26.251,26.927c0,2.111,0.225,4.16,0.676,6.133    C41.217,42.601,21.871,31.892,8.91,15.582c-2.261,3.991-3.554,8.621-3.554,13.552c0,9.338,4.636,17.581,11.683,22.412    c-4.297-0.131-8.355-1.356-11.901-3.359v0.331c0,13.051,9.053,23.937,21.074,26.403c-2.201,0.632-4.523,0.948-6.92,0.948    c-1.69,0-3.343-0.162-4.944-0.478c3.343,10.694,13.035,18.483,24.53,18.691c-8.986,7.227-20.315,11.533-32.614,11.533    c-2.119,0-4.215-0.123-6.266-0.37c11.623,7.627,25.432,12.088,40.255,12.088c48.309,0,74.717-41.026,74.717-76.612    c0-1.171-0.023-2.342-0.068-3.49C120.036,33.433,124.491,28.695,128,23.294" fill-rule="evenodd" id="Twitter_1_"/></g></g></svg>
+            </a>
+            <a href="" title="Share on Facebook" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=https://chalkpe.github.io/posts/phantomjs-instagram-crawler', 'newwindow', 'width=500, height=500'); return false;" data-turbolinks="false">
+              <svg enable-background="new 0 0 128 128" width="15px" version="1.1" viewBox="0 0 128 128" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="_x31__stroke"><g id="Facebook_1_"><rect fill="none" height="128" width="128"/><path clip-rule="evenodd" d="M68.369,128H7.065C3.162,128,0,124.836,0,120.935    V7.065C0,3.162,3.162,0,7.065,0h113.871C124.837,0,128,3.162,128,7.065v113.87c0,3.902-3.163,7.065-7.064,7.065H88.318V78.431    h16.638l2.491-19.318H88.318V46.78c0-5.593,1.553-9.404,9.573-9.404l10.229-0.004V20.094c-1.769-0.235-7.841-0.761-14.906-0.761    c-14.749,0-24.846,9.003-24.846,25.535v14.246H51.688v19.318h16.681V128z" fill-rule="evenodd" id="Facebook"/></g></g></svg>
+            </a>
+            <a href="" title="Share on Google+" onclick="window.open('https://plus.google.com/share?url=https://chalkpe.github.io/posts/phantomjs-instagram-crawler', 'newwindow', 'width=550, height=400'); return false;" data-turbolinks="false">
+              <svg enable-background="new 0 0 128 128" version="1.1" viewBox="0 0 128 128" width="20px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="_x35__stroke"><g id="Google_Plus"><rect clip-rule="evenodd" fill="none" fill-rule="evenodd" height="128" width="128"/><path clip-rule="evenodd" d="M40.654,55.935v16.13    c0,0,15.619-0.021,21.979-0.021C59.189,82.5,53.834,88.194,40.654,88.194c-13.338,0-23.748-10.832-23.748-24.194    s10.41-24.194,23.748-24.194c7.052,0,11.607,2.483,15.784,5.944c3.344-3.35,3.065-3.828,11.573-11.877    c-7.222-6.586-16.822-10.6-27.357-10.6C18.201,23.273,0,41.507,0,64c0,22.493,18.201,40.727,40.654,40.727    c33.561,0,41.763-29.275,39.044-48.792H40.654z M113.912,56.742V42.628h-10.063v14.113H89.358v10.081h14.491v14.517h10.063V66.823    H128V56.742H113.912z" fill-rule="evenodd" id="Google_Plus_1_"/></g></g></svg>
+            </a>
+          </div>
+
+          
+            <div id="disqus_thread" class="article-comments"></div>
+            <script>
+              (function() {
+                  var d = document, s = d.createElement('script');
+                  s.src = '//chalkboard-1.disqus.com/embed.js';
+                  s.setAttribute('data-timestamp', +new Date());
+                  (d.head || d.body).appendChild(s);
+              })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+          
+        </article>
+        <footer class="footer reveal">
+  <p>
+    다시는 반복하고 싶지 않은 끔찍한 상황들의 적절한 해결 방법을 기록해 두는 작은 블로그.&nbsp;
+    <a href="/about" title="About me">
+      &copy; 2017 ChalkPE
+    </a>
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+  <script>
+    WebFont.load({
+      google: {
+        families: ['Lato:300,400,700']
+      },
+      custom: {
+        families: ['Noto Sans KR', 'Noto Serif KR'],
+        urls: [
+          'https://fonts.googleapis.com/earlyaccess/notosanskr.css',
+          'https://cdn.rawgit.com/kattergil/NotoSerifKR-Web/master/stylesheet/NotoSerif-Web.css'
+        ]
+      }
+    });
+  </script>
+
+
+
+  <script>
+    window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;
+    ga('create','UA-97499484-1','auto');ga('send','pageview')
+  </script>
+  <script src="https://www.google-analytics.com/analytics.js" async defer></script>
+
+
+<script type="text/javascript" src="/assets/vendor.js"></script>
+<script type="text/javascript" src="/assets/application.js"></script>
+
+</body>
+</html>

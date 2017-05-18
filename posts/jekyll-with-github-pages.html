@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Chalkboard | GitHub Pages에 Jekyll 블로그 만들기</title>
+  <meta name="description" content="다시는 반복하고 싶지 않은 끔찍한 상황들의 적절한 해결 방법을 기록해 두는 작은 블로그">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="GitHub Pages에 Jekyll 블로그 만들기">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://chalkpe.github.io/posts/jekyll-with-github-pages">
+  <meta property="og:description" content="다시는 반복하고 싶지 않은 끔찍한 상황들의 적절한 해결 방법을 기록해 두는 작은 블로그">
+  <meta property="og:site_name" content="Chalkboard">
+  <meta property="og:image" content="https://chalkpe.github.io/assets/og-image.png">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://chalkpe.github.io/posts/jekyll-with-github-pages">
+  <meta name="twitter:title" content="GitHub Pages에 Jekyll 블로그 만들기">
+  <meta name="twitter:description" content="다시는 반복하고 싶지 않은 끔찍한 상황들의 적절한 해결 방법을 기록해 두는 작은 블로그">
+  <meta name="twitter:image" content="https://chalkpe.github.io/assets/og-image.png">
+
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link href="https://chalkpe.github.io/feed.xml" type="application/rss+xml" rel="alternate" title="Chalkboard Last 10 blog posts" />
+
+  
+
+  
+    <link type="text/css" rel="stylesheet" href="/assets/light.css">
+  
+</head>
+
+<body>
+  <main role="main">
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav reveal">
+  <a href="/" class="header-logo" title="Chalkboard">
+    Chalkboard
+    
+  </a>
+  <ul class="header-links">
+    
+      <li>
+        <a href="/about" title="About me">
+          <span class="icon icon-android-person"></span>
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="https://twitter.com/amato17" target="_blank" title="Twitter">
+          <span class="icon icon-social-twitter"></span>
+        </a>
+      </li>
+    
+    
+    
+      <li>
+        <a href="https://github.com/ChalkPE" target="_blank" title="GitHub">
+          <span class="icon icon-social-github"></span>
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="mailto:chalkpe@gmail.com" title="Email">
+          <span class="icon icon-at"></span>
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="/feed.xml" target="_blank" title="RSS">
+          <span class="icon icon-social-rss"></span>
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+        <article class="article reveal">
+          <header class="article-header">
+            <h1>GitHub Pages에 Jekyll 블로그 만들기</h1>
+            <p></p>
+            <div class="article-list-footer">
+              <span class="article-list-date">
+                April 17, 2017
+              </span>
+              <span class="article-list-divider">-</span>
+              <span class="article-list-minutes">
+                
+                
+                  2 minute read
+                
+              </span>
+              <span class="article-list-divider">-</span>
+              <div class="article-list-tags">
+                
+                  <a href="/tag/jekyll">jekyll</a>
+                
+                  <a href="/tag/blog">blog</a>
+                
+                  <a href="/tag/tutorial">tutorial</a>
+                
+                  <a href="/tag/web">web</a>
+                
+              </div>
+            </div>
+          </header>
+
+          <div class="article-content">
+            <h2 id="rubygems-설치하기">RubyGems 설치하기</h2>
+<p>로컬에서 Jekyll 블로그를 빌드해 보려면 Ruby 개발 환경이 필요합니다. <a href="https://github.com/rbenv/rbenv">rbenv</a>를 이용해 Ruby 2.4.1 버전과 gem을 동시에 설치합니다.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+<span class="gp">$ </span><span class="nb">cd</span> ~/.rbenv <span class="o">&amp;&amp;</span> src/configure <span class="o">&amp;&amp;</span> make -C src
+<span class="gp">$ </span><span class="nb">echo</span> <span class="s1">'export PATH="$HOME/.rbenv/bin:$PATH"'</span> &gt;&gt; ~/.bashrc
+<span class="gp">$ </span>git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+<span class="gp">$ </span>rbenv install 2.4.1</code></pre></figure>
+
+<h2 id="로컬에서-jekyll-블로그-만들기">로컬에서 Jekyll 블로그 만들기</h2>
+<p>RubyGems를 이용해서 Jekyll과 Bundler를 설치하고, 이름이 <code class="highlighter-rouge">chalkboard</code>인 블로그를 하나 만듭니다.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>gem install jekyll bundler
+<span class="gp">$ </span>jekyll new chalkboard <span class="o">&amp;&amp;</span> <span class="nb">cd </span>chalkboard
+<span class="gp">$ </span>bundle <span class="nb">exec </span>jekyll serve</code></pre></figure>
+
+<p><a href="http://localhost:4000">http://localhost:4000</a>에 접속해 보면 깔끔한 블로그 하나가 만들어져 있는 걸 확인할 수 있습니다.</p>
+
+<h2 id="_configyml-편집하기">_config.yml 편집하기</h2>
+<p>우선 블로그 제목 등의 기본적인 설정을 수정합니다. <code class="highlighter-rouge">description: </code> 뒤에 <code class="highlighter-rouge">&gt;</code>를 붙이면 설명을 여러 줄에 걸쳐서 쓸 수 있습니다.</p>
+
+<figure class="highlight"><pre><code class="language-yml" data-lang="yml"><span class="s">title</span><span class="pi">:</span> <span class="s">Chalkboard</span>
+<span class="s">description</span><span class="pi">:</span> <span class="pi">&gt;</span>
+  <span class="no">다시는 반복하고 싶지 않은 끔찍한 상황들의</span>
+  <span class="no">적절한 해결 방법을 기록해 두는 작은 블로그</span>
+
+<span class="s">encoding</span><span class="pi">:</span> <span class="s">utf-8</span>
+<span class="s">email</span><span class="pi">:</span> <span class="s">chalk@chalk.pe</span></code></pre></figure>
+
+<p><code class="highlighter-rouge">timezone</code>은 <a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones">여기</a>를 참고해서 설정합니다. <code class="highlighter-rouge">twitter_username</code>이나 <code class="highlighter-rouge">github_username</code>은 계정이 없다면 안 써도 됩니다.</p>
+
+<figure class="highlight"><pre><code class="language-yml" data-lang="yml"><span class="s">timezone</span><span class="pi">:</span> <span class="s">Asia/Seoul</span>
+<span class="s">github_username</span><span class="pi">:</span> <span class="s">ChalkPE</span>
+<span class="s">twitter_username</span><span class="pi">:</span> <span class="s">amato17</span></code></pre></figure>
+
+<p>그 다음으로, 블로그 주소를 설정합니다. 깃허브 페이지에서 호스팅할 것이기 때문에 전 이렇게 설정했습니다.</p>
+
+<figure class="highlight"><pre><code class="language-yml" data-lang="yml"><span class="s">baseurl</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+<span class="s">url</span><span class="pi">:</span> <span class="s2">"</span><span class="s">https://chalkpe.github.io"</span></code></pre></figure>
+
+<p>Jekyll에서는 댓글을 직접 처리할 수 없기에 <a href="https://disqus.com/admin/create/">Disqus</a>를 이용합니다. 사이트를 생성하고 <a href="https://help.disqus.com/customer/portal/articles/466208">shortname</a>을 확인해서 아래와 같이 설정하세요.</p>
+
+<figure class="highlight"><pre><code class="language-yml" data-lang="yml"><span class="s">disqus</span><span class="pi">:</span>
+  <span class="s">shortname</span><span class="pi">:</span> <span class="s">chalkboard-1</span></code></pre></figure>
+
+<p>마지막으로 방문자 집계를 위한 <a href="http://analytics.google.com/">Google Analytics</a> 설정입니다. <code class="highlighter-rouge">UA-000000-2</code> 형태의 <a href="https://support.google.com/analytics/answer/1008080">Tracking ID</a>를 확인하고 다음과 같이 설정하세요.</p>
+
+<figure class="highlight"><pre><code class="language-yml" data-lang="yml"><span class="s">google_analytics</span><span class="pi">:</span> <span class="s">UA-97499484-1</span></code></pre></figure>
+
+<h2 id="글-쓰기">글 쓰기</h2>
+<p><code class="highlighter-rouge">/_posts</code> 폴더에 <code class="highlighter-rouge">2017-04-17-hello-world.md</code> 파일을 만들고, 다음 내용을 입력합니다.</p>
+
+<figure class="highlight"><pre><code class="language-markdown" data-lang="markdown"><span class="nn">---</span>
+<span class="s">layout</span><span class="pi">:</span> <span class="s">post</span>
+<span class="s">title</span><span class="pi">:</span> <span class="s">Hello, world!</span>
+<span class="s">date</span><span class="pi">:</span> <span class="s">2017-04-17 23:30</span>
+<span class="s">categories</span><span class="pi">:</span> <span class="s">blog</span>
+<span class="nn">---</span>
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</code></pre></figure>
+
+<p><code class="highlighter-rouge">bundle exec jekyll serve</code> 명령을 다시 실행하고 <a href="http://localhost:4000">http://localhost:4000</a>에 접속해 보면 성공적으로 글이 올라온 것을 확인할 수 있습니다.</p>
+
+          </div>
+
+          <div class="article-share">
+            
+            <a href="" title="Share on Twitter" onclick="window.open('https://twitter.com/home?status=GitHub+Pages%EC%97%90+Jekyll+%EB%B8%94%EB%A1%9C%EA%B7%B8+%EB%A7%8C%EB%93%A4%EA%B8%B0 - https://chalkpe.github.io/posts/jekyll-with-github-pages by @amato17', 'newwindow', 'width=500, height=225'); return false;" data-turbolinks="false">
+              <svg enable-background="new 0 0 128 128" width="15px" version="1.1" viewBox="0 0 128 128" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="_x37__stroke"><g id="Twitter"><rect clip-rule="evenodd" fill="none" fill-rule="evenodd" height="128" width="128"/><path clip-rule="evenodd" d="M128,23.294    c-4.703,2.142-9.767,3.59-15.079,4.237c5.424-3.328,9.587-8.606,11.548-14.892c-5.079,3.082-10.691,5.324-16.687,6.526    c-4.778-5.231-11.608-8.498-19.166-8.498c-14.493,0-26.251,12.057-26.251,26.927c0,2.111,0.225,4.16,0.676,6.133    C41.217,42.601,21.871,31.892,8.91,15.582c-2.261,3.991-3.554,8.621-3.554,13.552c0,9.338,4.636,17.581,11.683,22.412    c-4.297-0.131-8.355-1.356-11.901-3.359v0.331c0,13.051,9.053,23.937,21.074,26.403c-2.201,0.632-4.523,0.948-6.92,0.948    c-1.69,0-3.343-0.162-4.944-0.478c3.343,10.694,13.035,18.483,24.53,18.691c-8.986,7.227-20.315,11.533-32.614,11.533    c-2.119,0-4.215-0.123-6.266-0.37c11.623,7.627,25.432,12.088,40.255,12.088c48.309,0,74.717-41.026,74.717-76.612    c0-1.171-0.023-2.342-0.068-3.49C120.036,33.433,124.491,28.695,128,23.294" fill-rule="evenodd" id="Twitter_1_"/></g></g></svg>
+            </a>
+            <a href="" title="Share on Facebook" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=https://chalkpe.github.io/posts/jekyll-with-github-pages', 'newwindow', 'width=500, height=500'); return false;" data-turbolinks="false">
+              <svg enable-background="new 0 0 128 128" width="15px" version="1.1" viewBox="0 0 128 128" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="_x31__stroke"><g id="Facebook_1_"><rect fill="none" height="128" width="128"/><path clip-rule="evenodd" d="M68.369,128H7.065C3.162,128,0,124.836,0,120.935    V7.065C0,3.162,3.162,0,7.065,0h113.871C124.837,0,128,3.162,128,7.065v113.87c0,3.902-3.163,7.065-7.064,7.065H88.318V78.431    h16.638l2.491-19.318H88.318V46.78c0-5.593,1.553-9.404,9.573-9.404l10.229-0.004V20.094c-1.769-0.235-7.841-0.761-14.906-0.761    c-14.749,0-24.846,9.003-24.846,25.535v14.246H51.688v19.318h16.681V128z" fill-rule="evenodd" id="Facebook"/></g></g></svg>
+            </a>
+            <a href="" title="Share on Google+" onclick="window.open('https://plus.google.com/share?url=https://chalkpe.github.io/posts/jekyll-with-github-pages', 'newwindow', 'width=550, height=400'); return false;" data-turbolinks="false">
+              <svg enable-background="new 0 0 128 128" version="1.1" viewBox="0 0 128 128" width="20px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="_x35__stroke"><g id="Google_Plus"><rect clip-rule="evenodd" fill="none" fill-rule="evenodd" height="128" width="128"/><path clip-rule="evenodd" d="M40.654,55.935v16.13    c0,0,15.619-0.021,21.979-0.021C59.189,82.5,53.834,88.194,40.654,88.194c-13.338,0-23.748-10.832-23.748-24.194    s10.41-24.194,23.748-24.194c7.052,0,11.607,2.483,15.784,5.944c3.344-3.35,3.065-3.828,11.573-11.877    c-7.222-6.586-16.822-10.6-27.357-10.6C18.201,23.273,0,41.507,0,64c0,22.493,18.201,40.727,40.654,40.727    c33.561,0,41.763-29.275,39.044-48.792H40.654z M113.912,56.742V42.628h-10.063v14.113H89.358v10.081h14.491v14.517h10.063V66.823    H128V56.742H113.912z" fill-rule="evenodd" id="Google_Plus_1_"/></g></g></svg>
+            </a>
+          </div>
+
+          
+            <div id="disqus_thread" class="article-comments"></div>
+            <script>
+              (function() {
+                  var d = document, s = d.createElement('script');
+                  s.src = '//chalkboard-1.disqus.com/embed.js';
+                  s.setAttribute('data-timestamp', +new Date());
+                  (d.head || d.body).appendChild(s);
+              })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+          
+        </article>
+        <footer class="footer reveal">
+  <p>
+    다시는 반복하고 싶지 않은 끔찍한 상황들의 적절한 해결 방법을 기록해 두는 작은 블로그.&nbsp;
+    <a href="/about" title="About me">
+      &copy; 2017 ChalkPE
+    </a>
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+  <script>
+    WebFont.load({
+      google: {
+        families: ['Lato:300,400,700']
+      },
+      custom: {
+        families: ['Noto Sans KR', 'Noto Serif KR'],
+        urls: [
+          'https://fonts.googleapis.com/earlyaccess/notosanskr.css',
+          'https://cdn.rawgit.com/kattergil/NotoSerifKR-Web/master/stylesheet/NotoSerif-Web.css'
+        ]
+      }
+    });
+  </script>
+
+
+
+  <script>
+    window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;
+    ga('create','UA-97499484-1','auto');ga('send','pageview')
+  </script>
+  <script src="https://www.google-analytics.com/analytics.js" async defer></script>
+
+
+<script type="text/javascript" src="/assets/vendor.js"></script>
+<script type="text/javascript" src="/assets/application.js"></script>
+
+</body>
+</html>
