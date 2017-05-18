@@ -1,10 +1,11 @@
-!.keep
+# Global
 *.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Project
+!.keep
 *.sass-cache
 /.asset-cache/*
 /_site/*
 /_assets/bower/*
-
-_site
-.sass-cache
-.jekyll-metadata

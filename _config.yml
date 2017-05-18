@@ -2,7 +2,7 @@
 
 name: Chalkboard
 paginate: 25
-url: http://chalkpe.github.io
+url: https://chalkpe.github.io
 blog_theme: light
 
 description: 다시는 반복하고 싶지 않은 끔찍한 상황들의 적절한 해결 방법을 기록해 두는 작은 블로그
@@ -15,7 +15,6 @@ timezone: Asia/Seoul
 about_enabled: true
 discus_identifier: chalkboard-1
 ga_analytics: UA-97499484-1
-local_fonts: false # Change to true if you wish to use local fonts
 rss_enabled: true
 
 social:
