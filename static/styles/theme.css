@@ -1,0 +1,89 @@
+@import url('https://cdn.rawgit.com/tonsky/FiraCode/1.204/distr/fira_code.css');
+@import url('https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css');
+
+#wrapper.home {
+  max-width: 650px !important;
+}
+
+#wrapper.post {
+  max-width: 900px !important;
+}
+
+figure {
+  margin-bottom: 15px;
+}
+
+img {
+  transition: all 0.2s ease-in;
+  box-shadow: 0px 0px 32px #0000001F;
+}
+
+img:hover {
+  transform: scale(1.2);
+  box-shadow: 0px 0px 150px #00000080;
+}
+
+figcaption {
+  color: #888;
+  font-style: italic;
+}
+
+body,
+h2,
+.profile h2,
+.description,
+.home h2,
+.post h1,
+.post h2,
+.post h2.headline,
+.post h2.headline .tags,
+#post-list h2,
+#post-list a,
+#post-list .dates,
+h2.month,
+#archive-list a,
+#archive-list .dates,
+#post-list.archive.readmore h3,
+#post-list.archive.readmore a,
+#post-list.archive.readmore .dates
+
+{
+  font-family: "NanumSquareRound", sans-serif !important;
+}
+
+code,
+#toc,
+#TableOfContents a code
+
+{
+  font-family: "Fira Code", monospace !important;
+}
+
+p a,
+nav.main-nav a,
+a, #title, #post-list a:hover, #title:hover,
+#archive-list li a:hover, #archive-list li:hover .dates,
+#post-list.archive.readmore a,
+.archive .post-item:hover,
+.archive .post-item:hover .post-link,
+.page-tags ul li a:hover
+
+{
+  color: #1abd9d !important;
+}
+
+
+nav.main-nav a.cta,
+#archive-link:hover
+
+{
+  color: #fff !important;
+  background-color: #1abd9d !important;
+}
+
+#archive-link,
+#archive-link:hover
+
+{
+  box-shadow: 0 0 0  1px #1abd9d !important;
+}

@@ -1,0 +1,65 @@
+{
+  "title": "Chalkboard",
+  "baseURL": "https://b.chalk.pe/",
+
+  "languageCode": "ko",
+  "hasCJKLanguage": true,
+
+  "theme": "hugo-theme-cactus-plus",
+  "googleAnalytics": "UA-97499484-1",
+
+  "params": {
+    "author": "Chalk",
+    "description": "다시는 반복하고 싶지 않은 끔찍한 상황들의 적절한 해결 방법을 기록해 두는 작은 블로그",
+    "bio": "있었는데요 없었습니다",
+
+    "twitter": "amato17",
+    "facebook": "",
+
+    "enableRSS": true,
+    "enableToc": false,
+
+    "enableDisqus": true,
+    "disqusShortname": "chalkboard-1",
+
+    "enableSummary": true,
+    "useDescriptionReplaceSummary": false,
+
+    "enableGoogleAnalytics": true,
+    "enableBaiduAnalytics": false,
+    "baiduAnalytics": "",
+
+    "enableTwitterCard": true,
+    "twitterCardImage": "",
+
+    "customCSS": ["styles/theme.css"],
+    "customJS": [],
+
+    "home": "",
+    "about": "",
+    "archive": "",
+    "subscribe": "",
+
+    "olderPosts": "",
+    "newerPosts": "",
+    "copyright": "&copy; 2017-2018 Chalk",
+
+    "showLatestPosts": false,
+    "readMore": "",
+
+    "enableShare": false,
+    "tweet": "",
+    "share": "",
+
+    "title404": "",
+    "subtitle404": "",
+
+    "iconFont": "font-awesome",
+    "socialIconStyle": ""
+  },
+
+  "social": {
+    "github-alt": "https://github.com/ChalkPE",
+    "twitter": "https://twitter.com/amato17"
+  }
+}
