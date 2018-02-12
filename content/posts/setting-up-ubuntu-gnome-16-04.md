@@ -1,13 +1,13 @@
 +++
 menu = "main"
 title = "Ubuntu GNOME 16.04 설치하기"
-date = 2018-02-12T10:58:16+09:00
+date = 2018-02-11T22:58:16+09:00
 tags = ["linux", "tutorial"]
 +++
 
 {{< figure
   alt="Ubuntu GNOME 16.04"
-  src="/images/ubuntu/main.png"
+  src="/images/setting-up-ubuntu-gnome-16-04/main.png"
   caption="(GitHub Universe 2015 배경화면 사용 중)" >}}
 
 ## 설치하기에 앞서
@@ -27,7 +27,7 @@ tags = ["linux", "tutorial"]
 ### 고통의 시작
 {{< figure width="300px"
   alt="Fuck you, NVIDIA!"
-  src="/images/ubuntu/torvalds-f-you-nvidia.jpg"
+  src="/images/setting-up-ubuntu-gnome-16-04/torvalds-f-you-nvidia.jpg"
   caption="토발즈 아저씨가 이미 욕한 NVIDIA입니다" >}}
 
 그런데 ~~시발~~ 제 노트북에 들어있는 그래픽 카드가 **NVIDIA GeForce GTX 960M**이라서요... 엔당의 고질적인 드라이버 문제 때문에 그냥 켜면 [영원히 부팅 화면에서 멈춰 버립니다](https://twitter.com/amato17/status/956233588172713984).
@@ -112,11 +112,11 @@ sudo apt install -f # 의존성 오류가 떴다면 해결해서 다시 설치�
 
 {{< figure
   alt="Right Alt as Hangul, Right Ctrl as Hanja"
-  src="/images/ubuntu/hangul-tweak.png" >}}
+  src="/images/setting-up-ubuntu-gnome-16-04/hangul-tweak.png" >}}
 
 ### 한글 입력하기
 1. `im-config -n fcitx` 명령어 입력 후 로그아웃했다 다시 로그인
-2. 트레이 리스트에 키보드 모양 아이콘 <img class="inline" src="/images/ubuntu/fcitx.png"> 우클릭 - `Configure` 클릭
+2. 트레이 리스트에 키보드 모양 아이콘 <img class="inline" src="/images/setting-up-ubuntu-gnome-16-04/fcitx.png"> 우클릭 - `Configure` 클릭
 3. 창 하단의 `+` 버튼 클릭 - `Only Show Current Language` 체크 해제 - `Hangul` 검색 후 추가
 4. `Global Config` 탭 클릭 - `Trigger Input Method`의 두번째 버튼 클릭 - `한/영` 키 누르기 (`Hangul`로 입력됐다면 성공)
 
@@ -128,3 +128,11 @@ sudo apt install -f # 의존성 오류가 떴다면 해결해서 다시 설치�
 2. `Show Advance Option` 체크
 3. `Appearance` 탭 클릭
 4. `Show Input Method Hint After Input method changed` 체크 해제
+
+### 윈도우로 부팅하면 시스템 시간이 9시간 어긋나는 문제 해결하기
+* 리눅스는 UTC로 시스템 시간을 저장하고, 윈도우는 로컬 타임으로 저장해서 발생하는 문제
+* 윈도우가 UTC를 쓰게 하는 건 레지스트리 편집해야 해서 귀찮으니까... 편하게 리눅스를 바꿉시다
+
+```bash
+timedatectl set-local-rtc 1
+```
