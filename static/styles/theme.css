@@ -48,6 +48,22 @@ img:hover {
   transform: scale(1.2);
   box-shadow: 0px 0px 150px #00000080;
 }
+
+img.inline {
+  width: auto;
+  height: 1.5em;
+  margin-bottom: 0.5em;
+  vertical-align: middle;
+
+  box-shadow: none;
+  background-color: #fff;
+}
+
+img.inline:hover {
+  transform: scale(10);
+  box-shadow: 0px 0px 150px #11111180;
+}
+
 body,
 h2,
 .profile h2,

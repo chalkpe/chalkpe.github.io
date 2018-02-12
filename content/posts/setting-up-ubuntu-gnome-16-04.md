@@ -3,7 +3,6 @@ menu = "main"
 title = "Ubuntu GNOME 16.04 설치하기"
 date = 2018-02-12T10:58:16+09:00
 tags = ["linux", "tutorial"]
-draft = true
 +++
 
 {{< figure
@@ -106,6 +105,7 @@ sudo apt install -f # 의존성 해결해서 다시 설치
 
 전부 다 설치했다면 `gnome-tweak-tool`을 켜고
 
+1. `Top Bar` 메뉴에서 `Show date`와 `Show seconds` 체크
 1. `Extensions` 메뉴에서 적당히 익스텐션 옵션 커스터마이징
 1. `Appearance` 메뉴에서 `GTK+` 테마는 `Numix`, `Icons` 테마는 `Numix-Circle`로 변경
 1. `Typing` - `Korean Hangul/Hanja keys` - `Right Alt as Hangul, Right Ctrl as Hanja` 체크
@@ -116,12 +116,15 @@ sudo apt install -f # 의존성 해결해서 다시 설치
 
 ### 한글 입력하기
 1. `im-config -n fcitx` 명령어 입력 후 로그아웃했다 다시 로그인
-2. 트레이 리스트에 키보드 모양 아이콘을 우클릭 - `Configure` 클릭
+2. 트레이 리스트에 키보드 모양 아이콘 <img class="inline" src="/images/ubuntu/fcitx.png"> 우클릭 - `Configure` 클릭
 3. 창 하단의 `+` 버튼 클릭 - `Only Show Current Language` 체크 해제 - `Hangul` 검색 후 추가
 4. `Global Config` 탭 클릭 - `Trigger Input Method`의 두번째 버튼 클릭 - `한/영` 키 누르기 (`Hangul`로 입력됐다면 성공)
 
-#### 한글 모드로 전환하면 조그맣게 뜨는 `Hangul` 창 없애기
-`Global Config` 탭 클릭 - `Show Advance Option` 체크 - `Appearance` 탭 클릭 - `Show Input Method Hint After Input method changed` 체크 해제
-
 #### 세미콜론 누를 때마다 뜨는 '그 창' 없애기
 `Addon` 탭 클릭 - `Quickphrase` 선택 - `Configure` 버튼 클릭 - `Trigger Key for QuickPhrase`를 `None`으로 변경
+
+#### 한글 모드로 전환하면 조그맣게 뜨는 `Hangul` 창 없애기
+1. `Global Config` 탭 클릭
+2. `Show Advance Option` 체크
+3. `Appearance` 탭 클릭
+4. `Show Input Method Hint After Input method changed` 체크 해제
