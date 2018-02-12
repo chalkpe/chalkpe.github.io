@@ -13,6 +13,20 @@ figure {
   margin-bottom: 15px;
 }
 
+
+::selection {
+  background: #4aedcd;
+}
+
+::-moz-selection {
+  background: #4aedcd;
+}
+
+del {
+  text-decoration-style: solid;
+  text-decoration-color: #1abd9d;
+}
+
 img {
   transition: all 0.2s ease-in;
   box-shadow: 0px 0px 32px #0000001F;
