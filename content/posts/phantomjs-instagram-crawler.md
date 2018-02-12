@@ -24,7 +24,7 @@ $ npm i --save phantomjs-prebuilt
 $ npm i --save-dev babel-cli babel-preset-env babel-preset-stage-0
 
 # 코드 스타일 검사
-npm i --save-dev standard
+$ npm i --save-dev standard
 ```
 
 설치가 끝나면 우리의 작업을 빠르고 편하게 해 줄 스크립트들을 추가합니다. 각각 `npm run compile` 커맨드는 ES7 문법으로 작성된 코드를 [PhantomJS]에서 돌아갈 수 있도록 변환해 주고, `npm start` 커맨드는 변환 후에 코드를 실행하며, `npm test` 커맨드는 먼저 코드 스타일을 검사한 후 코드를 변환해 줍니다.
