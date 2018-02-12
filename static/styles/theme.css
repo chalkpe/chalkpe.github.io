@@ -10,9 +10,22 @@
 }
 
 figure {
-  margin-bottom: 15px;
+  margin-bottom: 0.75em;
 }
 
+figcaption {
+  color: #888;
+  font-style: italic;
+}
+
+figcaption p {
+  margin-bottom: 0;
+}
+
+iframe.twitter-tweet {
+  margin: 0 auto;
+  margin-bottom: 1.5em !important;
+}
 
 ::selection {
   background: #4aedcd;
@@ -22,8 +35,7 @@ figure {
   background: #4aedcd;
 }
 
-del {
-  text-decoration-style: solid;
+a del {
   text-decoration-color: #1abd9d;
 }
 
@@ -36,12 +48,6 @@ img:hover {
   transform: scale(1.2);
   box-shadow: 0px 0px 150px #00000080;
 }
-
-figcaption {
-  color: #888;
-  font-style: italic;
-}
-
 body,
 h2,
 .profile h2,

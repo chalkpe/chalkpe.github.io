@@ -15,7 +15,7 @@ hidden = true
 
 ***
 
-~~[Jekyll]~~ [Hugo](https://gohugo.io)로 만들었습니다.<br>
+[~~Jekyll~~][Jekyll] [Hugo](https://gohugo.io)로 만들었습니다.<br>
 [깃허브]에서 이 블로그의 소스 코드를 볼 수 있습니다.<br>
 [나눔스퀘어라운드]를 본문 폰트로, [Fira Code]를 코드 폰트로 사용하고 있습니다.<br>
 
