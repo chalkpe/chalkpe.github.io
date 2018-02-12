@@ -32,7 +32,7 @@ tags = ["linux", "tutorial"]
 
 그런데 ~~시발~~ 제 노트북에 들어있는 그래픽 카드가 **NVIDIA GeForce GTX 960M**이라서요... 엔당의 고질적인 드라이버 문제 때문에 그냥 켜면 [영원히 부팅 화면에서 멈춰 버립니다](https://twitter.com/amato17/status/956233588172713984).
 
-GRUB 커널 부트 옵션에서 `acpi=off` 아니면 `nomodeset`을 `quiet splash` 근처에 추가하면 해결되는데, 부팅 중에 `ESC` 키를 누르고 `F6` 키를 누르면 [관련 설정](https://twitter.com/amato17/status/961992971355701248)을 간단하게 할 수 있어요. 정상적으로 부팅된 후엔 편안하게 설치할 파티션을 고르고 하스스톤 한 판 하고 오시면 됩니다.
+GRUB 커널 부트 옵션에서 `acpi=off` 아니면 `nomodeset`을 `quiet splash` 근처에 추가하면 해결되는데, 부팅 중에 `ESC` 키를 누르고 `F6` 키를 누르면 [관련 설정](https://twitter.com/amato17/status/961992971355701248)을 간단하게 할 수 있어요. 정상적으로 부팅된 후엔 편안하게 설치할 파티션을 고르고 [하스스톤](https://playhearthstone.com) 한 판 하고 오시면 됩니다. ~~어그로 덱은 4판은 돌려야 끝나니까 재미있고 클린한 컨덱 하세요~~
 
 ## 설치 후에 할 일
 일단 업그레이드를 하기 전에, 느려터진 기본 저장소를 다음카카오 미러로 변경합시다.
@@ -69,11 +69,11 @@ sudo apt upgrade && sudo apt autoremove
 ```
 
 ### APT로 설치하기 귀찮은 것들 설치
-[Telegram Desktop](https://desktop.telegram.org)의 경우에는 다운로드해서 압축을 푼 후에 `chmod +x ./Telegram && ./Telegram`으로 실행해 줍니다. 처음에는 켜지는 게 좀 오래 걸려요. [Atom](https://atom.io), [Discord](https://discord.gg), [Google Chrome](https://www.google.com/chrome/) 등은 `.deb` 파일을 다운로드한 후에 다음 명령어를 쳐 줍시다.
+[Telegram Desktop](https://desktop.telegram.org)의 경우에는 다운로드해서 압축을 푼 후에 `chmod +x ./Telegram && ./Telegram`으로 실행해 줍니다. 처음에는 켜지는 게 좀 오래 걸려요. ~~묵직한~~ [Atom](https://atom.io), [Discord](https://discord.gg), [Google Chrome](https://www.google.com/chrome/) 등은 `.deb` 파일을 다운로드한 후에 다음 명령어를 쳐 줍시다.
 
 ```bash
 sudo dpkg -i ~/Downloads/*.deb
-sudo apt install -f # 의존성 해결해서 다시 설치
+sudo apt install -f # 의존성 오류가 떴다면 해결해서 다시 설치해 줍니다
 ```
 
 ### 커스터마이징
