@@ -23,7 +23,7 @@
     "enableDisqus": true,
     "disqusShortname": "chalkboard-1",
 
-    "enableSummary": true,
+    "enableSummary": false,
     "useDescriptionReplaceSummary": false,
 
     "enableGoogleAnalytics": true,

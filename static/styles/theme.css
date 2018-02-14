@@ -1,6 +1,10 @@
 @import url('https://cdn.rawgit.com/tonsky/FiraCode/1.204/distr/fira_code.css');
 @import url('https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css');
 
+#post-list li {
+  margin-bottom: 0;
+}
+
 #wrapper.home {
   max-width: 650px !important;
 }
@@ -64,6 +68,10 @@ img.inline:hover {
   box-shadow: 0px 0px 150px #11111180;
 }
 
+.profile {
+  text-shadow: 0 0 3px #0003;
+}
+
 body,
 h2,
 .profile h2,
@@ -108,18 +116,15 @@ a, #title, #post-list a:hover, #title:hover,
   color: #1abd9d !important;
 }
 
+#post-list a {
+  color: inherit !important;
+}
 
-nav.main-nav a.cta,
-#archive-link:hover
-
-{
+nav.main-nav a.cta, #archive-link:hover {
   color: #fff !important;
   background-color: #1abd9d !important;
 }
 
-#archive-link,
-#archive-link:hover
-
-{
+#archive-link, #archive-link:hover {
   box-shadow: 0 0 0  1px #1abd9d !important;
 }
