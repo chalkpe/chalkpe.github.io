@@ -28,7 +28,7 @@ rm -rf ~/atom.asar/
 
 apm i title-bar-replacer
 cd ~/.atom/packages/title-bar-replacer/
-npm i jQuery # fallback for jquery (안 추가하면 에러 나더라고요)
+npm i jQuery # https://github.com/sindrets/atom-title-bar-replacer/pull/25
 
 atom <PROJECT>
 # 에디터가 켜지면 title-bar-replacer

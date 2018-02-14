@@ -4,7 +4,9 @@
 
   "languageCode": "ko",
   "hasCJKLanguage": true,
+
   "enableEmoji": true,
+  "enableGitInfo": true,
 
   "theme": "hugo-theme-cactus-plus",
   "googleAnalytics": "UA-97499484-1",
