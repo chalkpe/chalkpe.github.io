@@ -56,7 +56,9 @@
     "subtitle404": "",
 
     "iconFont": "font-awesome",
-    "socialIconStyle": ""
+    "socialIconStyle": "",
+
+    "avatarLink": "."
   },
 
   "social": {
