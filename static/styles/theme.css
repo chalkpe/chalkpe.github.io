@@ -2,12 +2,17 @@
 @import url('https://cdn.rawgit.com/tonsky/FiraCode/1.204/distr/fira_code.css');
 @import url('https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css');
 
-.home h3 {
+.home h3, .home h4 {
   margin-bottom: 8px;
 }
 
-.post h3 {
+.post h3, .post h4 {
   margin-bottom: 6px;
+}
+
+.post table {
+  margin-top: 0px;
+  margin-bottom: 20px;
 }
 
 #post-list li {
@@ -109,6 +114,10 @@ code,
 
 {
   font-family: "Fira Code", monospace !important;
+}
+
+code, pre code {
+  color: #333;
 }
 
 p a,
