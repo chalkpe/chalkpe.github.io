@@ -14,10 +14,9 @@ hidden = true
 [GitHub](https://github.com/ChalkPE)
 
 ***
-
-[~~Jekyll~~][Jekyll] [Hugo](https://gohugo.io)로 만들었습니다.<br>
 [깃허브]에서 이 블로그의 소스 코드를 볼 수 있습니다.<br>
-[나눔스퀘어라운드]를 본문 폰트로, [Fira Code]를 코드 폰트로 사용하고 있습니다.<br>
+[Hugo]로 만들었습니다. [Jekyll] 기반의 기존 블로그는 [여기][이전 블로그]서 볼 수 있습니다.<br>
+[Noto Sans KR]을 본문 폰트로, [Fira Code]를 코드 폰트로 사용하고 있습니다.<br>
 
 블로그 내용에 오류가 있다면 [이슈], [이메일][Email], [메세지][Telegram] 등을 보내 주세요.<br>
 이 블로그는 개인적 의견을 포함하고 있으며 특정 집단의 의견을 대표하지 않습니다.
@@ -26,9 +25,11 @@ hidden = true
 
 [Email]: mailto://chalkpe@gmail.com
 [Telegram]: https://t.me/ChalkPE
-[OFL 1.1]: http://scripts.sil.org/OFL
+[OFL 1.1]: https://scripts.sil.org/OFL
 [깃허브]: https://github.com/ChalkPE/chalkpe.github.io
 [이슈]: https://github.com/ChalkPE/chalkpe.github.io/issues/new
 [Fira Code]: https://github.com/tonsky/FiraCode/blob/master/LICENSE
-[나눔스퀘어라운드]: https://help.naver.com/support/contents/contents.nhn?serviceNo=1074&categoryNo=3497
-[Jekyll]: https://github.com/ChalkPE/chalkpe.github.io/tree/63e1075345293ea55bb87b91128f6c796ad52e3e
+[Noto Sans KR]: https://fonts.google.com/earlyaccess#Noto+Sans+KR
+[이전 블로그]: https://github.com/ChalkPE/chalkpe.github.io/tree/63e1075345293ea55bb87b91128f6c796ad52e3e
+[Jekyll]: https://jekyllrb.com
+[Hugo]: https://gohugo.io

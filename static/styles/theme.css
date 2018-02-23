@@ -1,5 +1,5 @@
+@import url('https://fonts.googleapis.com/earlyaccess/notosanskr.css');
 @import url('https://cdn.rawgit.com/tonsky/FiraCode/1.204/distr/fira_code.css');
-@import url('https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css');
 
 #post-list li {
   margin-bottom: 0;
@@ -68,10 +68,6 @@ img.inline:hover {
   box-shadow: 0px 0px 150px #11111180;
 }
 
-.profile {
-  text-shadow: 0 0 3px #0003;
-}
-
 body,
 h2,
 .profile h2,
@@ -92,7 +88,7 @@ h2.month,
 #post-list.archive.readmore .dates
 
 {
-  font-family: "NanumSquareRound", sans-serif !important;
+  font-family: "Noto Sans KR", sans-serif !important;
 }
 
 code,
