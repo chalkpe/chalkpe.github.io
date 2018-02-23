@@ -16,8 +16,8 @@ tags = ["linux", "atom", "javascript"]
 npm -g i asar
 # 시작하기 전에 아톰 종료하기
 
-cp /usr/share/atom/resources/app.asar ~
-asar e ~/app.asar ~/atom.asar/
+cp /usr/share/atom/resources/app.asar ~ # 백업
+asar e /usr/share/atom/resources/app.asar ~/atom.asar/
 
 gedit ~/atom.asar/src/main-process/atom-window.js
 # `title: 'Atom',` 검색한 후 그 옆에 `frame: false,` 추가
@@ -31,15 +31,14 @@ cd ~/.atom/packages/title-bar-replacer/
 npm i jQuery # https://github.com/sindrets/atom-title-bar-replacer/pull/25
 
 atom <PROJECT>
-# 에디터가 켜지면 title-bar-replacer
-# 패키지의 컨피그를 취향대로 적당히 설정하세요
+# 에디터가 켜지면 title-bar-replacer 패키지의 컨피그를 취향대로 적당히 설정하세요
 ```
 
 ## 원래대로 돌리기
 ```bash
 # 시작하기 전에 아톰 종료하기
 apm rm title-bar-replacer
-sudo cp ~/app.asar /usr/share/atom/resources/app.asar
+sudo cp ~/app.asar /usr/share/atom/resources/
 ```
 
 {{< figure
