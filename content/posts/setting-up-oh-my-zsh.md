@@ -1,6 +1,6 @@
 +++
 menu = "main"
-title = "Bash 대신 Zsh 사용하기"
+title = "bash 대신 zsh 사용하기"
 date = 2018-02-24T03:42:41+09:00
 tags = ["linux", "zsh", "tutorial"]
 +++
