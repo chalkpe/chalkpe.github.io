@@ -6,6 +6,10 @@
   margin-bottom: 8px;
 }
 
+.post h3 {
+  margin-bottom: 6px;
+}
+
 #post-list li {
   margin-bottom: 0;
 }
