@@ -7,7 +7,7 @@ tags = ["etc"]
 
 {{< figure
   alt="Vitamin"
-  src="/images/traders-multi-vitamin-difference/vitamin.png" >}}
+  src="/images/traders-multi-vitamin-difference/vitamin-resized.png" >}}
 
 ### 기본정보
 
